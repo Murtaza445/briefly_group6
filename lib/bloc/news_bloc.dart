@@ -17,8 +17,11 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   ) async {
     emit(NewsLoading());
     try {
-      final news = await repository.getTechNews();
-      emit(NewsLoaded(news));
+      final brief = await repository.getTechNewsBrief();
+      emit(NewsLoaded(
+        news: brief.news,
+        curatedSummary: brief.curatedSummary,
+      ));
     } catch (e) {
       emit(NewsError(e.toString()));
     }

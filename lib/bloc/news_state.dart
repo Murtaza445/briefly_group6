@@ -8,8 +8,9 @@ class NewsLoading extends NewsState {}
 
 class NewsLoaded extends NewsState {
   final List<NewsItem> news;
+  final String curatedSummary;
 
-  NewsLoaded(this.news);
+  NewsLoaded({required this.news, required this.curatedSummary});
 }
 
 class NewsError extends NewsState {
