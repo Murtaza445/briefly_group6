@@ -1,26 +1,46 @@
-# Tech News - Flutter App
+# Briefly
 
-A Flutter application that displays tech news summaries from the last 24 hours, built as part of the **Gemini API for Flutter Developers** workshop conducted at **Road to DevFest 2025**.
+Briefly is a Flutter news reader that combines a baseline news feed with a Gemini-powered curated summary of the latest tech stories. This submission keeps the existing Bloc structure and adds a second remote datasource that calls Gemini directly to generate a concise brief from the fetched headlines.
 
-## 📱 Screenshots
+## Group Submission
+
+- Group 6
+- Murtaza Johar - 22K-4508
+- Shahmir Ahmed Khan - 22K-4414
+- Saad Ahmed - 22K-4345
+- Haseeb Mujtaba - 22K-4307
+
+## What Changed
+
+- Added a Gemini datasource that calls the Gemini 2.5 Flash API directly.
+- Extended the repository and Bloc so the screen receives both the raw news cards and a curated AI summary.
+- Updated the home feed UI to show the Gemini summary above the article list.
+- Kept the API key out of source control and configured the app to read it at build time.
+
+## Screenshots
 
 <div align="center">
-  <img src="images/ss1.png" width="200" alt="Screenshot 1" />
-  <img src="images/ss2.png" width="200" alt="Screenshot 2" />
-  <img src="images/ss3.png" width="200" alt="Screenshot 3" />
+  <img src="images/s2.png" width="220" alt="Home feed screenshot" />
+  <img src="images/s3.png" width="220" alt="Gemini summary screenshot" />
+  <img src="images/ss3.png" width="220" alt="Share sheet screenshot" />
 </div>
 
-## 🎯 About This Project
+## New Code Snippets
 
-This project was initially prototyped using **v0.dev** to generate the UI design. The codebase was then revamped and refactored into a clean **BLoC (Business Logic Component) architecture** using **komposo.ai** and **Cursor IDE** for improved code organization, maintainability, and scalability.
+Key parts of the implementation are in the following files:
 
-## 🏗️ Architecture
+- [Gemini datasource](lib/data/datasources/gemini_summary_data_source.dart)
+- [Repository orchestration](lib/data/repositories/news_repository.dart)
+- [Bloc state and event flow](lib/bloc/news_bloc.dart)
+- [Feed UI](lib/presentation/screens/news_screen.dart)
 
-This project follows the **BLoC (Business Logic Component) pattern** with a clean architecture structure:
+## Architecture
+
+The app follows a simple Bloc-based structure:
 
 ```
 lib/
-├── bloc/              # BLoC layer (events, states, bloc)
+├── bloc/              # BLoC layer
 ├── data/              # Data layer
 │   ├── datasources/   # Remote data sources
 │   ├── models/        # Data models
@@ -30,50 +50,38 @@ lib/
     └── widgets/       # Reusable widgets
 ```
 
-## 🚀 Features
+## Features
 
-- ✅ Fetch tech news summaries from the last 24 hours
-- ✅ Clean BLoC architecture implementation
-- ✅ Pull-to-refresh functionality
-- ✅ Share Daily Brief bottom sheet UI
-- ✅ Dark theme with modern UI design
-- ⏳ Email sharing functionality (homework assignment)
+- Tech news feed sourced from the existing remote news endpoint
+- Gemini-generated curated summary for the current set of stories
+- Bloc state management with pull-to-refresh
+- Share Daily Brief bottom sheet UI
+- Dark UI with a high-contrast lime accent
 
-## 📝 Workshop Homework Assignment
+## Gemini API Setup
 
-### Email Functionality Implementation
+Do not commit your API key to the repository.
 
-As part of the workshop, attendees are encouraged to complete the email sharing functionality as a homework assignment. The UI for the "Share Daily Brief" feature is already implemented, but the actual email sending logic needs to be added.
+1. Create an API key in Google AI Studio.
+2. Run the app with a build-time define:
 
-**What needs to be implemented:**
-- Email sending functionality in the `ShareDailyBriefSheet` widget
-- Integration with email service (in our case application integration on Google Cloud)
-- Error handling for email operations
-- Success/error feedback to users
+```bash
+flutter run --dart-define=GEMINI_API_KEY=YOUR_KEY_HERE
+```
 
-**How to contribute:**
-- Implement the email functionality
-- Submit a Pull Request with your implementation
-- Or create your own fork and share your solution
+For release builds, pass the same `--dart-define` flag to `flutter build`.
 
-**Location of the code to modify:**
-- `lib/presentation/widgets/share_daily_brief_sheet.dart` - The "Send Brief" button's `onPressed` callback (currently has a placeholder comment)
+## Local Run
 
-## 🤝 Contributing
+```bash
+flutter pub get
+flutter run --dart-define=GEMINI_API_KEY=YOUR_KEY_HERE
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request or fork this repository for your own implementations.
+## Submission Notes
 
-## 📄 License
+This repository is intended to be submitted as a fork of the shared class repo. Include the group names, updated screenshots, and the final code snippets in your submission notes or PR description.
 
-This project is part of the Road to DevFest 2025 workshop materials.
+## License
 
-## 🙏 Acknowledgments
-
-- **v0.dev** - Initial UI design and prototyping
-- **komposo.ai** - UI revamp idea assistance
-- **Cursor IDE** - Development environment and AI-powered refactoring
-- **Road to DevFest 2025** - Workshop organizers and participants
-
----
-
-Built with ❤️ for the Flutter developer community
+This project is part of the class workshop submission.
